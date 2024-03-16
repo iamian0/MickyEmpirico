@@ -1,0 +1,10 @@
+'Calculos de distancia
+
+Diametro = 6.88 ' valor en centimetros
+PerimetroDeLaCircunferencia = (Diametro * 3.141592) ' debe dar 21.6141 cm
+DistanciaMedida = 10 ' este valor en centimetros
+Movimiento = (DistanciaMedida/PerimetroDeLaCircunferencia)*360 ' el resultado es en grados
+
+'Aqui empieza el programa
+Motor.ResetCount("BC")
+Motor.MoveSync("BC",-100,-100,Movimiento,"True") 'funcion para ir adelante

@@ -1,0 +1,63 @@
+
+'Calculos de distancia
+
+Diametro = 6.88 ' valor en centimetros
+PerimetroDeLaCircunferencia = (Diametro * 3.141592) ' debe dar 21.6141 cm
+DistanciaMedida = 40 ' este valor en centimetros
+Movimiento = (DistanciaMedida/PerimetroDeLaCircunferencia)*360 ' el resultado es en grados
+
+'Aqui empieza el programa
+Motor.Invert ("B")
+Motor.ResetCount("BC")
+'seteo sensores
+Sensor.SetMode(2,0) 
+Sensor.SetMode(3,0)
+
+'seguidor de L
+
+'Establecemos la velocidad inicial de los motores
+velocidadIzquierda = 40
+velocidadDerecha = 40
+
+'Leemos los valores de los sensores de color 
+
+while "True"
+ valorSensor1 = Sensor.ReadPercent (2)
+  valorSensor2 = Sensor.ReadPercent (3)
+  
+
+  'Si el sensor de la izquierda detecta la línea...
+  if valorSensor1 > 50 then
+
+    'disminuimos la velocidad del motor izquierdo
+    Motor.MoveSync("BC", 25 , 35 , 360 , "True")
+
+  else
+
+    'aumentamos la velocidad del motor izquierdo
+    Motor.MoveSync("BC", velocidadIzquierda, 40 , 360 , "True")
+
+  EndIf
+
+  'Si el sensor de la derecha detecta la línea...
+  if valorSensor2 > 50 then
+
+'disminuimos derecha  
+Motor.MoveSync("BC", 35 , 25 , 360 , "True")
+
+else
+
+'acelerar derecha
+Motor.MoveSync( "BC", 40, velocidadDerecha , 360 , "True")
+
+  EndIf
+
+'Encendemos los motores con las velocidades ajustadas
+Motor.Start("BC", 40)
+EndWhile
+
+While Sensor.ReadPercent(3)>10
+
+Endwhile
+
+Motor.Stop("BC","True")

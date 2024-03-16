@@ -1,0 +1,48 @@
+'seguidor copion 
+
+vel = 60
+dis = 1080
+Motor.Invert ("B")
+
+Sub RM
+  Motor.ResetCount("BC")
+EndSub  
+  
+Sub Sens 
+  RM()
+  Kp = 0.6
+  Kd = 12
+  error=0
+  lastError=0
+  speed=30
+  If vel = 60 Then
+    speed = 60
+  EndIf
+  If vel = 20 Then
+    speed = 25
+  EndIf
+  If vel = 40 Then
+    Kp = 0.8
+    Kd = 16
+  EndIf
+  If vel = 120 Then
+    speed = 97
+    Kp = 0.8
+    Kd = 16
+  EndIf
+  If vel =33 Then
+    speed = 40
+  EndIf
+  While Motor.GetCount("C") < dis
+    error=Sensor.ReadPercent(1)-Sensor.ReadPercent(2)
+    correction=error*Kp+(error-Lasterror)*Kd  
+    Motor.StartPower("B", -speed-correction)
+    Motor.StartPower("C", speed-correction)
+    lastError=error
+  EndWhile
+RM()
+EndSub
+
+'INICIO DEL PROGRAMA'
+
+Sens()
