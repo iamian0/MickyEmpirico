@@ -1,3 +1,4 @@
+
 'Calculos de distancia
 
 Diametro = 6.88 ' valor en centimetros
@@ -53,8 +54,10 @@ Motor.MoveSync( "BC", 40, velocidadDerecha , 360 , "True")
 
 'Encendemos los motores con las velocidades ajustadas
 Motor.Start("BC", 40)
- 
-'Esperamos 10 milisegundos
-  Program.Delay("10")
-
 EndWhile
+
+While Sensor.ReadPercent(3)>10
+
+Endwhile
+
+Motor.Stop("BC","True")

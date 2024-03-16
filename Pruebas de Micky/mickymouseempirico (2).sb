@@ -1,0 +1,70 @@
+'Calculos de distancia
+
+Diametro = 6.88 ' valor en centimetros
+PerimetroDeLaCircunferencia = (Diametro * 3.141592) ' debe dar 21.6141 cm
+DistanciaMedida = 40 ' este valor en centimetros
+Movimiento = (DistanciaMedida/PerimetroDeLaCircunferencia)*360 ' el resultado es en grados
+
+'Aqui empieza el programa
+Motor.Invert ("B")
+Motor.ResetCount("BC")
+Sensor.SetMode(3,0) 
+Motor.Start("BC", 15)
+
+While Sensor.ReadPercent(3)>10
+
+Endwhile
+
+Motor.Stop("BC", "True")
+'seguidor de L
+// Definimos las variables para los motores y sensores
+motorIzquierdo = MotorB
+motorDerecho = MotorC
+sensorColor1 = Sensor2
+sensorColor2 = Sensor3
+
+// Establecemos la velocidad inicial de los motores
+velocidadIzquierda = 50
+velocidadDerecha = 50
+
+// Bucle principal del programa
+while true
+
+  // Leemos los valores de los sensores de color
+  valorSensor1 = GetSensorValue(sensorColor1)
+  valorSensor2 = GetSensorValue(sensorColor2)
+
+  // Si el sensor 1 detecta la línea...
+  if valorSensor1 > 50 then
+
+    // ...disminuimos la velocidad del motor izquierdo
+    velocidadIzquierda = 25
+
+  else
+
+    // ...aumentamos la velocidad del motor izquierdo
+    velocidadIzquierda = 50
+
+  end if
+
+  // Si el sensor 2 detecta la línea...
+  if valorSensor2 > 50 then
+
+    // ...disminuimos la velocidad del motor derecho
+    velocidadDerecha = 25
+
+  else
+
+    // ...aumentamos la velocidad del motor derecho
+    velocidadDerecha = 50
+
+  end if
+
+  // Encendemos los motores con las velocidades ajustadas
+  On(motorIzquierdo, velocidadIzquierda)
+  On(motorDerecho, velocidadDerecha)
+
+  // Esperamos 10 milisegundos
+  Wait(10)
+
+end while
